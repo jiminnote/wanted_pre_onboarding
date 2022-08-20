@@ -10,16 +10,15 @@ const passport = require('passport');
 dotenv.config();
 const Router = require('./routes');
 const authRouter = require('./routes/auth');
+const jobPostingRouter = require('./routes/jobPostingRouter');
 const { sequelize } = require('./models');
-const passportConfig = require('./passport');
-
 const app = express();
 passportConfig(); 
 
 app.set('port',process.env.PORT||8000);
 app.set('views engine', 'html');
 nunjucks.configure('views',{
-    exoress:app,
+    express:app,
     watch: true,
 });
 
@@ -37,7 +36,6 @@ app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(session({
     resave: false,
     saveUninitialized: false,
-    secret: process.env.COOKIE_SECRET,
     cookie: {
         httpOnly: true,
         secure: false,
@@ -46,7 +44,8 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/', Router);
+app.use('/', pageRouter);
+app.use('/jobPosting', jobPostingRouter);
 app.use('/auth', authRouter);
 
 app.use((req,res,next)=>{
