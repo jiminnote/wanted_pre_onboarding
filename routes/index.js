@@ -5,4 +5,5 @@ const jobPostingRouter = require('./jobPostingRouter');
 
 router.use('/jobPosting', jobPostingRouter.router);
 
+
 module.exports = router;
