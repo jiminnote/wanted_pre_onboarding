@@ -53,7 +53,7 @@ jest
 	
 	- deleteJobPosting
 	
-![image](https://user-images.githubusercontent.com/95075455/185798280-df09b79a-5b8f-4434-8ddf-10ec2c11516c.png)
+<img width="500" alt="image" src="https://user-images.githubusercontent.com/95075455/185798984-ee4b1cf0-9114-4e1a-9b28-fdaeb0ce30d1.png">
 
 4. 채용공고 검색 기능
 
