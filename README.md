@@ -45,6 +45,7 @@ How To Use
   
 ## 기능 구현
 ### 🌱modeling
+[db.diagram](https://dbdiagram.io/d/62f464c2c2d9cf52fa86eb48)
 ![image](https://user-images.githubusercontent.com/95075455/185796609-7e8d1b31-f1dc-4c45-8d2c-9040f234ef93.png)
 
 
@@ -52,8 +53,8 @@ How To Use
 Thanks to Wanted
 
 # 🌟Reference
-wanted
-dbdiagram.io
+wanted</br>
+dbdiagram.io</br>
 
 # 🌟Links
 
