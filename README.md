@@ -10,11 +10,11 @@ wanted 웹 사이트처럼 채용공고를 열람할 수 있는 미니 프로젝
 
 # 🌟 적용 기술 및 구현 기능
 ## 적용 기술
-Node.js
-express
-Mysql
-Sequelize
-passport
+Node.js</br>
+express</br>
+Mysql</br>
+Sequelize</br>
+passport</br>
 jest
 
 ## 구현 기능
