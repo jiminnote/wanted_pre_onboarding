@@ -53,7 +53,7 @@ jest
 	
 	- deleteJobPosting
 	
-<img width="500" alt="image" src="https://user-images.githubusercontent.com/95075455/185798984-ee4b1cf0-9114-4e1a-9b28-fdaeb0ce30d1.png">
+<img width="492" alt="스크린샷 2022-08-22 오전 12 42 06" src="https://user-images.githubusercontent.com/95075455/185799130-bef72906-620d-42c6-b608-88b1431e7525.png">
 
 4. 채용공고 검색 기능
 
