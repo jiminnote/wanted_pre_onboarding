@@ -20,16 +20,18 @@ jest
 ## 구현 기능
 How To Use
 1. 채용공고 등록
-	- POST / /post
+	- POST  /post
   	- postJobPosting
-- 권한이 있는 유저만 등록가능
+- 권한이 있는 유저만 등록가능 : `Invalid Permission`
+- 필수 입력 항목이 비어있을 경우 : `key error`
 
 2. 채용공고 수정
 	- Patch /edit/:jobPostingId
 	- patchJobPosting
+- 필수 입력 항목이 비어있을 경우 : `key error`
 
-3. 채용공고 삭제 /delete/:jobPostingId
-	- DELETE 
+3. 채용공고 삭제 
+	- DELETE /delete/:jobPostingId
 	- deleteJobPosting
 
 4. 채용공고 검색 기능
@@ -44,6 +46,7 @@ How To Use
 6. 채용공고 지원
 	- POST /apply/:jobPostingId
 	- postJobPostingApply
+	-
 7. 로그인 
 	- POST /auth/login
 	- passport
