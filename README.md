@@ -21,7 +21,8 @@ jest
 How To Use
 1. 채용공고 등록
 	- POST / /post
-  - postJobPosting
+  	- postJobPosting
+- 권한이 있는 유저만 등록가능
 
 2. 채용공고 수정
 	- Patch /edit/:jobPostingId
@@ -34,6 +35,7 @@ How To Use
 4. 채용공고 검색 기능
 	- GET /list?search=원티드
 	- getJobPostingList
+- 회사명으로 검색 가능
 
 5. 채용공고 상제 정보
 	- GET /detail/:jobPostingId
@@ -42,6 +44,17 @@ How To Use
 6. 채용공고 지원
 	- POST /apply/:jobPostingId
 	- postJobPostingApply
+7. 로그인 
+	- POST /auth/login
+	- passport
+- 아이디 및 비밀번호 오류 `Invalid User`
+
+8. 로그아웃
+	- POST /auth/logout
+	- passport
+- 로그인 되어있지 않은 user일 경우 로그인 필요하다는 메세지 response
+
+
   
 ## 기능 구현
 ### 🌱modeling
