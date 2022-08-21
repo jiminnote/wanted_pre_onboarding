@@ -5,6 +5,7 @@ const { postJobPosting,
     getJobPostingDetail,
     patchJobPosting,
     deleteJobPosting,
+    getJobPostingSearch
     } = require('../controllers/jobPostingController');
 // 채용공고 등록 
 jobPostingRouter.post('/post', postJobPosting);
