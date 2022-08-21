@@ -5,8 +5,10 @@ const { postJobPosting,
     getJobPostingDetail,
     patchJobPosting,
     deleteJobPosting,
-    getJobPostingSearch
+    postApplyJobPosting,
+    getApplyJobPostingList
     } = require('../controllers/jobPostingController');
+    
 // 채용공고 등록 
 jobPostingRouter.post('/post', postJobPosting);
 
@@ -22,5 +24,10 @@ jobPostingRouter.get('/list', getJobPostingList);
 // 채용공고 상제 정보
 jobPostingRouter.get('/detail/:id', getJobPostingDetail);
 
+//채용공고 지원
+jobPostingRouter.post('/apply/:JobPostingId', postApplyJobPosting);
+
+//채용공고 지원 리스트
+jobPostingRouter.get('/applyList', getApplyJobPostingList);
 
 module.exports = jobPostingRouter;

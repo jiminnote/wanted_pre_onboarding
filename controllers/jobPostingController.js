@@ -1,5 +1,6 @@
 const { Company, Region, Technology, Country, Position } = require('../models');
 const JobPosting = require('../models/jobPosting');
+const User = require('../models/user');
 const { CreateError } = require("../utils/exceptions");
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
@@ -81,6 +82,10 @@ const postJobPosting = async (req, res) => {
         body: { compensation, content, CompanyId, PositionId, TechnologyId,  },
       } = req;
 
+      if (req.user.isBusinessAccount === false){
+        res.status(400).json({ error: "Invalid Permission" });
+      }
+      
       if (!(PositionId && content && CompanyId && content && TechnologyId)) {
         throw new CreateError(400, "Key Error");
       }
@@ -90,13 +95,42 @@ const postJobPosting = async (req, res) => {
         content,
         CompanyId,
         PositionId,
-        TechnologyId,
+        TechnologyId
       });
       res.status(200).json({ message :"Post Success", JobPosting : jobPosting.id });
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
   };
+
+//채용공고 지원
+const postApplyJobPosting = async (req, res) => {
+    try {
+      const {
+        params: { JobPostingId },
+      } = req;
+      const jobPostingRow = await JobPosting.findByPk(JobPostingId);
+      const UserRow = await User.findByPk(req.user.id);
+      await UserRow.addJobPostings(jobPostingRow);
+
+      res.status(200).json({ message :"Apply Success"});
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  };
+
+ // 지원 리스트 조회
+const getApplyJobPostingList = async (req, res) => {
+  try {
+      const jobPostings = await User.findAll({
+      where: { id: req.user.id },
+      include: JobPosting
+      });
+    res.status(200).json({ jobPostings});
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
 
 // 채용공고 수정
 const patchJobPosting = async (req, res) => {
@@ -144,4 +178,6 @@ module.exports = {
   postJobPosting,
   patchJobPosting,
   deleteJobPosting,
+  postApplyJobPosting,
+  getApplyJobPostingList
 };

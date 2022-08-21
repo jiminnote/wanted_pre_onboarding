@@ -12,14 +12,15 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
       return next(authError);
     }
     if (!user) {
-      res.status(400).json({ message:'Invalid User' });
+      res.status(400).json({ login:'Invalid User' });
     }
     return req.login(user, (loginError) => {
       if (loginError) {
         console.error(loginError);
         return next(loginError);
       }
-      res.status(200).json({ userId: user.id,userName: user.name });
+      res.cookie('userId', user.id, { maxAge: 2592000000 });
+      res.status(200).json({ userId: user.id,userName: user.name,isBusinessAccount: user.isBusinessAccount});
     });
   })(req, res, next); 
 });
