@@ -7,6 +7,8 @@ const nunjucks = require('nunjucks');
 const dotenv = require('dotenv');
 const passport = require('passport');
 
+const passportConfig = require('./passport');
+
 dotenv.config();
 const Router = require('./routes');
 const authRouter = require('./routes/auth');
@@ -44,7 +46,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/', pageRouter);
+app.use('/', Router);
 app.use('/jobPosting', jobPostingRouter);
 app.use('/auth', authRouter);
 

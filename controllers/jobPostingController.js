@@ -1,13 +1,41 @@
+const { Company, Region, Technology, Country, Position } = require('../models');
 const JobPosting = require('../models/jobPosting');
+const { CreateError } = require("../utils/exceptions");
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
-// 채용공고 리스트 조회
-const getJobPostingList = async (req, res, next) => {
+// 채용공고 리스트 검색 조회
+const getJobPostingList = async (req, res) => {
   try {
-    const jobPostings = await JobPosting.findAll();
+      search = req.query.search
+      const jobPostings = await JobPosting.findAll({
+      attributes: ['id','compensation','createdAt','updatedAt'],
+      order: [['createdAt', 'DESC']],
+       include: [
+        {
+        model: Company,
+        attributes: ["id","name"],
+        where:{[Op.or]: [{name:{[Op.like]: "%" + search + "%"}}]},
+        include: {
+          model: Region,
+          attributes: ["id","name"],
+          include: {
+            model: Country,
+            attributes: ["id","name"],
+          }
+        },
+        },
+        {model: Position,
+          attributes: ["id","name"],
+         },
+        {model: Technology,
+        attributes: ["id","name"],
+        }
+       ],
+      });
     res.status(200).json({ jobPostings});
   } catch (error) {
-    console.error(error);
-    next(error);
+    res.status(400).json({ error: error.message });
   }
 };
 
@@ -18,8 +46,28 @@ const getJobPostingDetail = async (req, res) => {
         params: {id},
       } = req;
       const jobPosting = await JobPosting.findOne({
-         id: id 
+        attributes: ['id','compensation', 'content','createdAt','updatedAt'],
+         id: id ,
+         include: [
+          {model: Company,
+          attributes: ["id","name"],
+          include: {
+            model: Region,
+            attributes: ["id","name"],
+            include: {
+              model: Country,
+              attributes: ["id","name"],
+            }
+          },
+          },
+          {model: Position,
+            attributes: ["id","name"],},
+          {model: Technology,
+            attributes: ["id","name"],
+          }
+         ]
         });
+        
       res.status(200).json({ jobPosting });
     } catch (error) {
       res.status(400).json({ error: error.message });
@@ -32,6 +80,10 @@ const postJobPosting = async (req, res) => {
       const {
         body: { compensation, content, CompanyId, PositionId, TechnologyId,  },
       } = req;
+
+      if (!(PositionId && content && CompanyId && content && TechnologyId)) {
+        throw new CreateError(400, "Key Error");
+      }
 
       const jobPosting = await JobPosting.create({
         compensation,
@@ -55,7 +107,12 @@ const patchJobPosting = async (req, res) => {
     const {
       body: { compensation, content, CompanyId, PositionId, TechnologyId,  },
     } = req;
-    const jobPosting = await JobPosting.update({
+
+    if (!(PositionId && content && CompanyId && content && TechnologyId)) {
+      throw new CreateError(400, "Key Error");
+    }
+
+    await JobPosting.update({
       compensation,
       content,
       CompanyId,
