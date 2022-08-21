@@ -1,7 +1,7 @@
 # 🌟 wanted_pre_onboarding 선발과제
 
 # 🌟 What is wanted_pre_onboarding Project
-기존의 있는 wanted 처럼 채용공고를 열람할 수 있는 미니 프로젝트이다.
+wanted 웹 사이트처럼 채용공고를 열람할 수 있는 미니 프로젝트이다.
 로그인한 사용자가 기업계정인 경우 채용공고를 업로드할 수 있고, 일반계정 사용자는 채용공고를 지원 할 수있다.
 
 # 🌟개발 인원 및 기간
